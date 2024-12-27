@@ -43,6 +43,7 @@ public class Main {
         }
     }
 }
+
 class First {
     public static void firstOption() {
         System.out.println("Installation complete");
@@ -61,11 +62,13 @@ class First {
         }
     }
 }
+
 class Second {
     public static void secondOption() {
         System.out.println("\u001B[33mSelected Basic mode\u001B[0m");
     }
 }
+
 class Third {
     public static void thirdOption() {
         System.out.println("\u001B[33mSelected Advanced mode\u001B[0m");
