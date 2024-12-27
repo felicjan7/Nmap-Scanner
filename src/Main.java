@@ -28,12 +28,12 @@ public class Main {
 
         if (menuVar == (byte) 1) {
             MenuInstall.InstallationPowerShellScript();
-            Main.firstOption();
+            First.firstOption();
             Main.main(Mainmenu);
         } else if (menuVar == (byte) 2) {
-            Main.secondOption();
+            Second.secondOption();
         } else if (menuVar == (byte) 3) {
-            Main.thirdOption();
+            Third.thirdOption();
         } else if (menuVar == (byte) 4) {
             System.out.println("\u001B[33mSelected Exit\u001B[0m");
             System.exit(0);
@@ -42,8 +42,9 @@ public class Main {
             Main.main(Mainmenu);
         }
     }
-
-    private static void firstOption() {
+}
+class First {
+    public static void firstOption() {
         System.out.println("Installation complete");
 
         try {
@@ -59,15 +60,18 @@ public class Main {
             e.printStackTrace();
         }
     }
-
-    private static void secondOption() {
+}
+class Second {
+    public static void secondOption() {
         System.out.println("\u001B[33mSelected Basic mode\u001B[0m");
     }
-
-    private static void thirdOption() {
+}
+class Third {
+    public static void thirdOption() {
         System.out.println("\u001B[33mSelected Advanced mode\u001B[0m");
     }
 }
+
 class MenuInstall {
     public static void InstallationPowerShellScript() {
         System.out.println("\u001B[33mSelected Install option\u001B[0m");
