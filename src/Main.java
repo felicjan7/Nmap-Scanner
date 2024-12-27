@@ -27,7 +27,6 @@ public class Main {
         byte menuVar = menu.nextByte();
 
         if (menuVar == (byte) 1) {
-            MenuInstall.InstallationPowerShellScript();
             First.firstOption();
             Main.main(Mainmenu);
         } else if (menuVar == (byte) 2) {
@@ -45,7 +44,9 @@ public class Main {
 }
 
 class First {
+
     public static void firstOption() {
+        First.InstallationPowerShellScript();
         System.out.println("Installation complete");
 
         try {
@@ -61,22 +62,7 @@ class First {
             e.printStackTrace();
         }
     }
-}
-
-class Second {
-    public static void secondOption() {
-        System.out.println("\u001B[33mSelected Basic mode\u001B[0m");
-    }
-}
-
-class Third {
-    public static void thirdOption() {
-        System.out.println("\u001B[33mSelected Advanced mode\u001B[0m");
-    }
-}
-
-class MenuInstall {
-    public static void InstallationPowerShellScript() {
+    private static void InstallationPowerShellScript() {
         System.out.println("\u001B[33mSelected Install option\u001B[0m");
         String command = "C:\\Users\\admin\\Desktop\\Nmap-Scanner\\src\\installNmap.ps1";
         ProcessBuilder processBuilder = new ProcessBuilder("powershell.exe", "-ExecutionPolicy", "Bypass", "-File", command);
@@ -99,3 +85,39 @@ class MenuInstall {
 
     }
 }
+
+class Second {
+    public static void secondOption() {
+        System.out.println("\u001B[33mSelected Basic mode\u001B[0m");
+        String command = "nmap --version";
+        ProcessBuilder processBuilder = new ProcessBuilder("powershell.exe", "-c", command);
+        try {
+            Process process = processBuilder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            boolean isNmapInstalled = false;
+            while (line = reader.readLine() != null) {
+                if (line.matches("Nmap version")) {
+                    isNmapInstalled = true;
+                    break;
+                }
+            }
+
+
+            if (isNmapInstalled) {
+                System.out.println("Git");
+            }
+            else {
+                System.out.println("Nmap not installed, returning to main menu");
+            }
+        }
+    }
+}
+
+class Third {
+    public static void thirdOption() {
+        System.out.println("\u001B[33mSelected Advanced mode\u001B[0m");
+    }
+}
+
+
