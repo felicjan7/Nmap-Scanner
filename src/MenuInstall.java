@@ -1,32 +1,28 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class MenuInstall {
-    public void menuInstallTest() {
-        System.out.println("Instalacja123");
+    public static void InstallationPowerShellScript() {
+        String command = "C:\\Users\\admin\\Desktop\\Nmap-Scanner\\src\\installNmap.ps1";
 
-        // Tworzymy polecenie PowerShell do uruchomienia
-        String command = "powershell.exe Get-ChildItem";
+        ProcessBuilder processBuilder = new ProcessBuilder("powershell.exe", "-ExecutionPolicy", "Bypass", "-File", command);
+
         try {
-        //Uruchamiamy proces
-        Process process = Runtime.getRuntime().exec(command);
+            // Uruchamiamy proces
+            Process process = processBuilder.start();
 
-        //Odczytujemy wynik diałania procesu
+            // Odczytujemy dane wyjściowe
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);  // Wyświetlanie danych wyjściowych skryptu
+            }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line); //Wypisuje wynik w konsoli
+            // Oczekujemy na zakończenie procesu
+            int exitCode = process.waitFor();
+            System.out.println("Zakończono z kodem: " + exitCode);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
 
-        //Zakończenie procesu
-        int exitCode = process.waitFor();
-        System.out.println(exitCode);
-    } catch(
-    Exception e)
-
-    {
-        e.printStackTrace();
     }
-}
 }
