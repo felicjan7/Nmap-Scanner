@@ -11,12 +11,12 @@ public class Main {
         menuTab[1][0] = (byte) 2;
         menuTab[1][1] = "Użycie";
 
-//        for (byte i = 0; i < menuTab.length; i++) {
-//            for (byte j = 0; j < menuTab[i].length; j++) {
-//                System.out.print(menuTab[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
+        for (Object[] row : menuTab) {  // Przechodzimy po każdym wierszu (tablicy jednowymiarowej)
+            for (Object element : row) {  // Przechodzimy po każdym elemencie w wierszu
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
         byte menuVar = menu.nextByte();
 
         if (menuVar == (byte) 1) {
