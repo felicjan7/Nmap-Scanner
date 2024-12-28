@@ -99,7 +99,7 @@ class Second {
             boolean isNmapInstalled = false;
 
             while ((line = reader.readLine()) != null) {
-                if (line.contains("Nmap version 7.95")) {
+                if (line.contains("Nmap version")) {
                     isNmapInstalled = true;
                     break;
                 }
@@ -135,15 +135,7 @@ class Second {
 
     }
     public static void menu() {
-
-        System.out.println("Example subnet: 192.168.1.0/24");
-        System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
-        Scanner network = new Scanner(System.in);
-        String networksubnet = network.nextLine();
-
-        Scanner menu = new Scanner(System.in);
-        System.out.println("\u001B[32mEntered network subnet:\u001B[0m" +" " + networksubnet);
-        System.out.println("Select an option:");
+        Scanner menuNumber = new Scanner(System.in);
 
         Object[][] menuTab = new Object[9][2];
         menuTab[0][0] = (byte) 1;
@@ -155,7 +147,7 @@ class Second {
         menuTab[3][0] = (byte) 4;
         menuTab[3][1] = "Detection of devices on the network and their open ports";
         menuTab[4][0] = (byte) 5;
-        menuTab[4][1] = "List all addresses and hosts to which given IP's are assigned";
+        menuTab[4][1] = "List all addresses and hosts to which given IPs are assigned";
         menuTab[5][0] = (byte) 6;
         menuTab[5][1] = "Scan for operating system";
         menuTab[6][0] = (byte) 7;
@@ -171,23 +163,52 @@ class Second {
             }
             System.out.println();
         }
-        byte menuVar = menu.nextByte();
+        byte menuVar = menuNumber.nextByte();
         switch (menuVar) {
             case 1:
-                System.out.println("\u001B[32mEnter the host address\u001B[0m");
-                Scanner networkCase1 = new Scanner(System.in);
-                String networkAddress = networkCase1.nextLine();
-                String commandOne = "nmap" + networkAddress;
-                ProcessBuilder caseOne = new ProcessBuilder("powershell.exe", "-c", commandOne);
+                System.out.println("\u001B[33mAvailable hosts:\u001B[0m");
+                String commandAvailableHosts = "arp -a";
+                ProcessBuilder AvailableHosts = new ProcessBuilder("powershell.exe","-c", commandAvailableHosts);
                 try {
-                    Process process = caseOne.start();
+                    Process process = AvailableHosts.start();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     String line;
                     while ((line = reader.readLine()) != null) {
                         System.out.println(line);
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    BufferedReader error = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                    String errorLine;
+                    while ((errorLine = error.readLine()) != null) {
+                        System.err.println(errorLine);
+                    }
+                    int exitCodeAvailableHosts = process.waitFor();
+                    if (exitCodeAvailableHosts != 0) {
+                        System.out.println("End with code: " + exitCodeAvailableHosts);
+                    }
+                } catch (IOException | InterruptedException availableHostsCatch) {
+                    availableHostsCatch.printStackTrace();
+                }
+
+                System.out.println("Example host address: 192.168.1.1");
+                System.out.println("\u001B[32mEnter the host address\u001B[0m");
+                Scanner networkCase1 = new Scanner(System.in);
+                String networkAddress = networkCase1.nextLine();
+
+                String commandOne = "nmap"+ " " + networkAddress;
+                ProcessBuilder caseOne = new ProcessBuilder("powershell.exe", "-c", commandOne);
+                try {
+                    Process processCaseOne = caseOne.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(processCaseOne.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                    int exitCodeCaseOne = processCaseOne.waitFor();
+                    if (exitCodeCaseOne != 0) {
+                        System.out.println("End with code: " + exitCodeCaseOne);
+                    }
+                } catch (IOException | InterruptedException One) {
+                    One.printStackTrace();
                 }
                 exitToSecondMenu.typeNumberToExitToSecondMenu();
 
@@ -208,31 +229,136 @@ class Second {
                     while ((line = reader.readLine()) != null) {
                         System.out.println(line);
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    int exitCodeCaseTwo = process.waitFor();
+                    if (exitCodeCaseTwo != 0) {
+                        System.out.println("End with code: " + exitCodeCaseTwo);
+                    }
+                } catch (IOException | InterruptedException Two) {
+                    Two.printStackTrace();
                 }
                 exitToSecondMenu.typeNumberToExitToSecondMenu();
 
             case 3:
-                System.out.println("3");
+                System.out.println("Example subnet: 192.168.1.0/24");
+                System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
+                Scanner network = new Scanner(System.in);
+                String networkSubnet = network.nextLine();
+
+                String commandThree = "nmap" + networkSubnet;
+                ProcessBuilder caseThree = new ProcessBuilder("powershell.exe", "-c", commandThree);
+                try {
+                    Process process = caseThree.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                    int exitCodeCaseThree = process.waitFor();
+                    if (exitCodeCaseThree != 0) {
+                        System.out.println("End with code: " + exitCodeCaseThree);
+                    }
+                } catch (IOException | InterruptedException Three) {
+                    Three.printStackTrace();
+                }
+                exitToSecondMenu.typeNumberToExitToSecondMenu();
+
             case 4:
-                System.out.println("4");
+                System.out.println("Example subnet: 192.168.1.0/24");
+                System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
+                Scanner networkCase4 = new Scanner(System.in);
+                String networkSubnetCase4 = networkCase4.nextLine();
+
+                String commandFour = "nmap -F" + networkSubnetCase4;
+                ProcessBuilder caseFour = new ProcessBuilder("powershell.exe", "-c", commandFour);
+                try {
+                    Process process = caseFour.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                    int exitCodeCaseFour = process.waitFor();
+                    if (exitCodeCaseFour != 0) {
+                        System.out.println("End with code: " + exitCodeCaseFour);
+                    }
+                } catch (IOException | InterruptedException Four) {
+                    Four.printStackTrace();
+                }
+                exitToSecondMenu.typeNumberToExitToSecondMenu();
             case 5:
-                System.out.println("5");
+                System.out.println("Example subnet: 192.168.1.0/24");
+                System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
+                Scanner networkCase5 = new Scanner(System.in);
+                String networkSubnetCase5 = networkCase5.nextLine();
+
+                String commandFive = "nmap -sL" + networkSubnetCase5;
+                ProcessBuilder caseFive = new ProcessBuilder("powershell.exe", "-c", commandFive);
+                try {
+                    Process process = caseFive.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                    int exitCodeCaseFive = process.waitFor();
+                    if (exitCodeCaseFive != 0) {
+                        System.out.println("End with code: " + exitCodeCaseFive);
+                    }
+                } catch (IOException | InterruptedException Five) {
+                    Five.printStackTrace();
+                }
+                exitToSecondMenu.typeNumberToExitToSecondMenu();
             case 6:
-                System.out.println("6");
+                System.out.println("Example subnet: 192.168.1.0/24");
+                System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
+                Scanner networkCase6 = new Scanner(System.in);
+                String networkSubnetCase6 = networkCase6.nextLine();
+
+                String commandSix = "nmap -O" + networkSubnetCase6;
+                ProcessBuilder caseSix = new ProcessBuilder("powershell.exe","-c", commandSix);
+                try {
+                    Process process = caseSix.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                    int exitCodeCaseSix = process.waitFor();
+                    if (exitCodeCaseSix != 0) {
+                        System.out.println("End with code: " + exitCodeCaseSix);
+                    }
+                } catch (IOException | InterruptedException Six) {
+                    Six.printStackTrace();
+                }
+                exitToSecondMenu.typeNumberToExitToSecondMenu();
             case 7:
-                System.out.println("7");
+                System.out.println("Example subnet: 192.168.1.0/24");
+                System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
+                Scanner networkCase7 = new Scanner(System.in);
+                String networkSubnetCase7 = networkCase7.nextLine();
+
+                String commandSeven = "nmap -sV" + networkSubnetCase7;
+                ProcessBuilder caseSeven = new ProcessBuilder("powershell.exe","-c", commandSeven);
+                try {
+                    Process process = caseSeven.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                    int exitCodeCaseSeven = process.waitFor();
+                    if (exitCodeCaseSeven != 0) {
+                        System.out.println("End with code: " + exitCodeCaseSeven);
+                    }
+                } catch (IOException | InterruptedException Seven) {
+                    Seven.printStackTrace();
+                }
+                exitToSecondMenu.typeNumberToExitToSecondMenu();
             case 8:
                 System.out.println("Backing to main menu");
                 Main.main(new String[0]);
             case 9:
                 System.out.println("Exiting..");
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 System.exit(0);
             default:
                 System.out.println("Wrong Number");
