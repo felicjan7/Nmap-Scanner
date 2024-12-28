@@ -134,14 +134,15 @@ class Second {
 
 
     }
-    private static void menu() {
+    public static void menu() {
 
-        System.out.println("\u001B[33mEnter the network address\u001B[0m");
+        System.out.println("Example subnet: 192.168.1.0/24");
+        System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
         Scanner network = new Scanner(System.in);
-        String networkAddress = network.nextLine();
+        String networksubnet = network.nextLine();
 
         Scanner menu = new Scanner(System.in);
-        System.out.println("\u001B[32mEntered network address:\u001B[0m" +" " + networkAddress);
+        System.out.println("\u001B[32mEntered network subnet:\u001B[0m" +" " + networksubnet);
         System.out.println("Select an option:");
 
         Object[][] menuTab = new Object[9][2];
@@ -171,31 +172,78 @@ class Second {
             System.out.println();
         }
         byte menuVar = menu.nextByte();
-        if (menuVar == (byte) 1) {
-            System.out.println("1");
-        } else if (menuVar == (byte) 2) {
-            System.out.println("2");
-        } else if (menuVar == (byte) 3) {
-            System.out.println("3");
-        } else if (menuVar == (byte) 4) {
-            System.out.println("4");
-        } else if (menuVar == (byte) 5) {
-            System.out.println("5");
-        } else if (menuVar == (byte) 6) {
-            System.out.println("6");
-        } else if (menuVar == (byte) 7) {
-            System.out.println("7");
-        } else if (menuVar == (byte) 8) {
-            System.out.println("Backing to main menu");
-            Main.main(new String[0]);
-        } else if (menuVar == (byte) 9) {
-            System.out.println("Exiting..");
-            System.exit(0);
-        } else {
-            System.out.println("Wrong Number");
-            menu();
-        }
+        switch (menuVar) {
+            case 1:
+                System.out.println("\u001B[32mEnter the host address\u001B[0m");
+                Scanner networkCase1 = new Scanner(System.in);
+                String networkAddress = networkCase1.nextLine();
+                String commandOne = "nmap" + networkAddress;
+                ProcessBuilder caseOne = new ProcessBuilder("powershell.exe", "-c", commandOne);
+                try {
+                    Process process = caseOne.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                exitToSecondMenu.typeNumberToExitToSecondMenu();
 
+            case 2:
+                System.out.println("\u001B[32mSample range:\u001B[0m 192.168.1.10-50");
+                System.out.println();
+                System.out.println("Enter range");
+
+                Scanner range = new Scanner(System.in);
+                String rangeString = range.nextLine();
+
+                String commandTwo = "nmap -sn " + rangeString;
+                ProcessBuilder caseTwo = new ProcessBuilder("powershell.exe", "-c", commandTwo);
+                try {
+                    Process process = caseTwo.start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                exitToSecondMenu.typeNumberToExitToSecondMenu();
+
+            case 3:
+                System.out.println("3");
+            case 4:
+                System.out.println("4");
+            case 5:
+                System.out.println("5");
+            case 6:
+                System.out.println("6");
+            case 7:
+                System.out.println("7");
+            case 8:
+                System.out.println("Backing to main menu");
+                Main.main(new String[0]);
+            case 9:
+                System.out.println("Exiting..");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.exit(0);
+            default:
+                System.out.println("Wrong Number");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                menu();
+
+        }
     }
 }
 
@@ -204,5 +252,17 @@ class Third {
         System.out.println("\u001B[33mSelected Advanced mode\u001B[0m");
     }
 }
-
+class exitToSecondMenu {
+    public static void typeNumberToExitToSecondMenu() {
+        System.out.println("\u001B[32mEnter number 0 to back to main menu\u001B[0m");
+        Scanner exitToSecondMenuNumber = new Scanner(System.in);
+        byte InsertedExitToSecondMenuNumber = exitToSecondMenuNumber.nextByte();
+        if (InsertedExitToSecondMenuNumber == 0) {
+            Second.menu();
+        } else {
+            System.out.println("Wrong Number !");
+            typeNumberToExitToSecondMenu();
+        }
+    }
+}
 
