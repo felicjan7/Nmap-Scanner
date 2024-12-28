@@ -244,7 +244,7 @@ class Second {
                 Scanner network = new Scanner(System.in);
                 String networkSubnet = network.nextLine();
 
-                String commandThree = "nmap" + networkSubnet;
+                String commandThree = "nmap" + " " + networkSubnet;
                 ProcessBuilder caseThree = new ProcessBuilder("powershell.exe", "-c", commandThree);
                 try {
                     Process process = caseThree.start();
@@ -264,11 +264,11 @@ class Second {
 
             case 4:
                 System.out.println("Example subnet: 192.168.1.0/24");
-                System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
+                System.out.println("\u001B[33mEnter the IP or network subnet\u001B[0m");
                 Scanner networkCase4 = new Scanner(System.in);
                 String networkSubnetCase4 = networkCase4.nextLine();
 
-                String commandFour = "nmap -F" + networkSubnetCase4;
+                String commandFour = "nmap -F" + " " + networkSubnetCase4;
                 ProcessBuilder caseFour = new ProcessBuilder("powershell.exe", "-c", commandFour);
                 try {
                     Process process = caseFour.start();
@@ -291,7 +291,7 @@ class Second {
                 Scanner networkCase5 = new Scanner(System.in);
                 String networkSubnetCase5 = networkCase5.nextLine();
 
-                String commandFive = "nmap -sL" + networkSubnetCase5;
+                String commandFive = "nmap -sL" + " " + networkSubnetCase5;
                 ProcessBuilder caseFive = new ProcessBuilder("powershell.exe", "-c", commandFive);
                 try {
                     Process process = caseFive.start();
@@ -310,11 +310,11 @@ class Second {
                 exitToSecondMenu.typeNumberToExitToSecondMenu();
             case 6:
                 System.out.println("Example subnet: 192.168.1.0/24");
-                System.out.println("\u001B[33mEnter the network subnet\u001B[0m");
+                System.out.println("\u001B[33mEnter the IP or network subnet\u001B[0m");
                 Scanner networkCase6 = new Scanner(System.in);
                 String networkSubnetCase6 = networkCase6.nextLine();
 
-                String commandSix = "nmap -O" + networkSubnetCase6;
+                String commandSix = "nmap -O" + " " + networkSubnetCase6;
                 ProcessBuilder caseSix = new ProcessBuilder("powershell.exe","-c", commandSix);
                 try {
                     Process process = caseSix.start();
@@ -337,7 +337,7 @@ class Second {
                 Scanner networkCase7 = new Scanner(System.in);
                 String networkSubnetCase7 = networkCase7.nextLine();
 
-                String commandSeven = "nmap -sV" + networkSubnetCase7;
+                String commandSeven = "nmap -sV" + " " + networkSubnetCase7;
                 ProcessBuilder caseSeven = new ProcessBuilder("powershell.exe","-c", commandSeven);
                 try {
                     Process process = caseSeven.start();
